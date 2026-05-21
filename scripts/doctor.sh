@@ -32,21 +32,10 @@ else
 fi
 
 if [[ -f .env ]]; then
-  ok "检测到 .env"
+  ok "检测到 .env（隐藏文件）"
 else
   warn "缺少 .env，请先 cp .env.example .env"
   EXIT_CODE=1
-fi
-
-if command -v ollama >/dev/null 2>&1; then
-  ok "ollama 已安装"
-  if ollama list | grep -q "Qwen3-VL-8B-NSFW-Caption-V4.5-mxfp4"; then
-    ok "默认模型已存在"
-  else
-    warn "默认模型不存在: Qwen3-VL-8B-NSFW-Caption-V4.5-mxfp4"
-  fi
-else
-  warn "未安装 ollama（可忽略：你也可以使用别的兼容服务）"
 fi
 
 if [[ -x .venv/bin/python && -f .env ]]; then

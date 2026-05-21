@@ -7,8 +7,8 @@ cd "$REPO_ROOT"
 usage() {
   cat <<'EOF'
 用法:
-  ./scripts/run.sh --oneshot   # 立刻处理一张（测试）
-  ./scripts/run.sh --daemon    # 持续守护（空闲时处理）
+  ./scripts/run.sh --oneshot   # 测试命令：只处理 1 张未处理照片，然后退出
+  ./scripts/run.sh --daemon    # 持续守护：空闲时继续处理更多照片
 EOF
 }
 

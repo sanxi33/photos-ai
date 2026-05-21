@@ -31,7 +31,7 @@ resolve_repo_root() {
 REPO_ROOT="$(resolve_repo_root)"
 cd "$REPO_ROOT"
 
-echo "==> Photos AI 一键安装"
+echo "==> Photos AI 一键安装（仅安装本工具运行环境）"
 
 if [[ "$(uname -s)" != "Darwin" ]]; then
   echo "❌ 仅支持 macOS。"
@@ -63,7 +63,8 @@ fi
 
 if [[ ! -f .env ]]; then
   cp .env.example .env
-  echo "==> 已生成 .env（你可以先用默认值，稍后再改）"
+  echo "==> 已生成 .env（隐藏文件）"
+  echo "   可直接编辑: open -e .env"
 fi
 
 echo "==> 创建虚拟环境并安装依赖"
@@ -74,26 +75,13 @@ else
 fi
 uv sync --extra dev
 
-if ! command -v ollama >/dev/null 2>&1; then
-  echo "⚠️  未检测到 ollama，可继续使用你自己的 OpenAI 兼容服务。"
-  echo "   若要安装 Ollama: https://ollama.com"
-else
-  echo "==> 检测本地模型"
-  if ! ollama list | grep -q "Qwen3-VL-8B-NSFW-Caption-V4.5-mxfp4"; then
-    echo "⚠️  未检测到默认模型 Qwen3-VL-8B-NSFW-Caption-V4.5-mxfp4"
-    echo "   请按你的服务方式手动准备该模型。"
-  else
-    echo "✅ 默认模型已存在"
-  fi
-fi
-
 echo "==> 运行环境检查"
 ./scripts/doctor.sh || true
 
 echo
 echo "✅ 安装完成"
 echo "下一步："
-echo "1) 编辑配置文件 .env（确认模型名和端口）"
-echo "2) 运行一次: ./scripts/run.sh --oneshot"
-echo "3) 常驻运行: ./scripts/run.sh --daemon"
+echo "1) 编辑 .env（模型地址、密钥、模型名）"
+echo "2) 先测试 1 张: ./scripts/run.sh --oneshot"
+echo "3) 持续处理: ./scripts/run.sh --daemon"
 echo "4) 可选开机自启: ./scripts/launchd.sh install"
