@@ -1,0 +1,18 @@
+[project]
+name = "photos-ai"
+version = "0.1.0"
+description = "Auto-caption Photos.app images with a local OpenAI-compatible VLM service"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "osxphotos>=0.74.0",
+  "requests>=2.32.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0",
+]
+
+[tool.uv]
+default-groups = []
